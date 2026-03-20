@@ -1,0 +1,47 @@
+databases:
+  - name: payflow-postgres
+    databaseName: payflow
+    user: payflow
+    plan: free
+
+services:
+  - type: web
+    name: payflow-rtgs
+    runtime: go
+    plan: free
+    rootDir: rtgs-core
+    buildCommand: go build -o rtgs-core ./cmd/main.go
+    startCommand: ./rtgs-core
+    envVars:
+      - key: PORT
+        value: 8082
+      - key: DATABASE_URL
+        fromDatabase:
+          name: payflow-postgres
+          property: connectionString
+
+  - type: web
+    name: payflow-exception-resolver
+    runtime: python
+    plan: free
+    rootDir: exception-resolver
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 main.py
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: payflow-postgres
+          property: connectionString
+
+  - type: web
+    name: payflow-dashboard
+    runtime: static
+    plan: free
+    rootDir: dashboard
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_RTGS_URL
+        value: https://payflow-rtgs.onrender.com
+      - key: VITE_RESOLVER_URL
+        value: https://payflow-exception-resolver.onrender.com

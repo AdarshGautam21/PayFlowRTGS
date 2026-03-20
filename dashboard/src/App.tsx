@@ -3,8 +3,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
 
-const API_RTGS = "http://localhost:8082";
-const API_RESOLVER = "http://localhost:8083";
+import { API_RTGS, API_RESOLVER } from "./config";
+
 
 interface Account {
   id: string;
