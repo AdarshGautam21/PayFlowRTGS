@@ -192,7 +192,7 @@ export default function App() {
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0ede6" />
                     <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                     <YAxis tick={{ fontSize: 11 }} />
-                    <Tooltip formatter={(v: number) => [`$${v.toLocaleString()}`, "Balance"]} />
+                    <Tooltip formatter={(v) => [`$${Number(v).toLocaleString()}`, "Balance"]} />
                     <Bar dataKey="balance" fill="#1D9E75" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
