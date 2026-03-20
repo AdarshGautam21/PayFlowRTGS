@@ -8,7 +8,7 @@ services:
   - type: web
     name: payflow-rtgs
     runtime: go
-    plan: free
+    plan: starter
     rootDir: rtgs-core
     buildCommand: go build -o rtgs-core ./cmd/main.go
     startCommand: ./rtgs-core
@@ -23,7 +23,7 @@ services:
   - type: web
     name: payflow-exception-resolver
     runtime: python
-    plan: free
+    plan: starter
     rootDir: exception-resolver
     buildCommand: pip install -r requirements.txt
     startCommand: python3 main.py
@@ -36,7 +36,7 @@ services:
   - type: web
     name: payflow-dashboard
     runtime: static
-    plan: free
+    plan: starter
     rootDir: dashboard
     buildCommand: npm install && npm run build
     staticPublishPath: dist
